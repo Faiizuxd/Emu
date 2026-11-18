@@ -1,10 +1,9 @@
 
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-import base64
 
-PORT = 8080
+PORT = 1000
 
-PHOTO = "''' + b64 + r'''"
+PHOTO = "https://i.postimg.cc/RhvySnyW/Screenshot-20261118-231129.png"
 
 HTML = """
 <!DOCTYPE html>
@@ -150,7 +149,7 @@ h2{
 
 <section class="banner">
 
-<img src="data:image/jpeg;base64,PHOTO_DATA" alt="Emu">
+<img src="PHOTO_URL" alt="Emu">
 
 <h1>Hey My Emu Ji! 🧸💗</h1>
 
@@ -255,8 +254,7 @@ setInterval(createHeart,450);
 </html>
 """
 
-# Insert the embedded picture into HTML
-HTML = HTML.replace("PHOTO_DATA", PHOTO)
+HTML = HTML.replace("PHOTO_URL", PHOTO)
 
 class Website(BaseHTTPRequestHandler):
 
@@ -302,5 +300,4 @@ if __name__ == "__main__":
 
     except KeyboardInterrupt:
         print("\nWebsite stopped!")
-
         server.server_close()
