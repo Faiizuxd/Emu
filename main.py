@@ -189,7 +189,7 @@ letter-spacing:2px;
 <div class="subtitle">Someone is really sorry today 🥺</div>
 
 <img class="photo"
-src="https://i.postimg.cc/RhvySnyW/Screenshot-20261118-231129.png"
+src="https://i.postimg.cc/1Xf9XHyG/file-00000000ff188211b2dd5ca15d1efc97.png"
 alt="My Emu">
 
 <h2>Ek Baat Suno Na Emu ❤️</h2>
