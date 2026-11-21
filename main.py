@@ -1,11 +1,9 @@
 
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
-PORT = 1000
+PORT = 8080
 
-PHOTO = "https://i.postimg.cc/RhvySnyW/Screenshot-20261118-231129.png"
-
-HTML = """
+HTML = r"""
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,287 +15,307 @@ HTML = """
 *{margin:0;padding:0;box-sizing:border-box}
 
 body{
- min-height:100vh;
- overflow-x:hidden;
- text-align:center;
- font-family:'Segoe UI',Arial,sans-serif;
- color:#994365;
- background:linear-gradient(135deg,#ffe3ee,#fff5f9,#ffd6e7);
+background:linear-gradient(145deg,#250019,#650039,#c21870);
+font-family:Georgia,serif;
+color:white;
+min-height:100vh;
+overflow-x:hidden;
 }
 
-.container{
- width:92%;
- max-width:500px;
- margin:28px auto;
- padding:12px;
-}
-
-.banner{
- padding:18px;
- background:linear-gradient(135deg,#ff9fc5,#ffd1e2);
- border:3px solid white;
- border-radius:28px;
- box-shadow:0 12px 32px #d96b9950;
- animation:appear 1.2s ease;
-}
-
-.banner img{
- width:100%;
- max-height:520px;
- object-fit:contain;
- background:#fff0f6;
- border-radius:20px;
- border:3px solid white;
-}
-
-.banner h1{
- color:white;
- font-size:29px;
- margin:17px 0 6px;
- text-shadow:0 2px 8px #bd4777;
-}
-
-.banner p{
- color:white;
- font-size:13px;
- letter-spacing:2px;
-}
-
-.card{
- margin-top:22px;
- padding:25px 20px;
- background:#ffffffdf;
- border:2px solid white;
- border-radius:25px;
- box-shadow:0 8px 25px #e78bb655;
- animation:appear 1.6s ease;
-}
-
-h2{
- color:#e34d8b;
- font-size:23px;
- margin-bottom:17px;
-}
-
-.message{
- font-size:15px;
- line-height:2;
- color:#82405e;
-}
-
-.poetry{
- margin-top:23px;
- padding:20px;
- background:#ffe6f0;
- border-radius:20px;
- line-height:2.1;
- font-style:italic;
- color:#b33970;
-}
-
-.signature{
- margin-top:25px;
- font-size:23px;
- color:#e34d8b;
- font-weight:bold;
-}
-
-.love{
- margin-top:18px;
- font-size:25px;
- color:#e83e83;
- animation:pulse 1.5s infinite;
-}
-
-.footer{
- margin:25px 0;
- font-size:13px;
- color:#b75a80;
- line-height:1.9;
-}
-
-.heart{
- position:fixed;
- bottom:-40px;
- font-size:22px;
- animation:float 7s linear forwards;
- opacity:.75;
- pointer-events:none;
- z-index:5;
+.hearts span{
+position:fixed;
+bottom:-50px;
+font-size:22px;
+animation:float 9s linear infinite;
+opacity:.7;
+z-index:0;
 }
 
 @keyframes float{
- 0%{transform:translateY(0) rotate(0);opacity:0}
- 20%{opacity:1}
- 100%{transform:translateY(-110vh) rotate(360deg);opacity:0}
+0%{transform:translateY(0) rotate(0);opacity:0}
+20%{opacity:.8}
+100%{transform:translateY(-110vh) rotate(360deg);opacity:0}
+}
+
+.container{
+position:relative;
+z-index:2;
+width:92%;
+max-width:480px;
+margin:35px auto;
+padding:25px 19px;
+border:1px solid #ff9acb66;
+border-radius:28px;
+background:rgba(255,255,255,.09);
+backdrop-filter:blur(15px);
+box-shadow:0 0 35px #ff3e9b35;
+text-align:center;
+}
+
+.top{
+color:#ffafd5;
+letter-spacing:4px;
+font-size:11px;
+margin-bottom:20px;
+}
+
+h1{
+font-size:35px;
+color:#ffb9d9;
+text-shadow:0 0 20px #ff3d9b;
+margin-bottom:10px;
+}
+
+.subtitle{
+font-size:14px;
+color:#ffd5e8;
+margin-bottom:23px;
+}
+
+.photo{
+width:100%;
+max-height:340px;
+object-fit:cover;
+border-radius:20px;
+border:2px solid #ffb1d4;
+box-shadow:0 0 25px #ff4b9d55;
+margin-bottom:24px;
+}
+
+.heart{
+font-size:45px;
+animation:pulse 1.5s infinite;
 }
 
 @keyframes pulse{
- 50%{transform:scale(1.07)}
+50%{transform:scale(1.2)}
 }
 
-@keyframes appear{
- from{opacity:0;transform:translateY(25px)}
- to{opacity:1;transform:translateY(0)}
+h2{
+color:#ffafd4;
+font-size:25px;
+margin:15px 0;
 }
+
+.letter{
+text-align:left;
+line-height:1.9;
+font-size:15px;
+color:#fff0f7;
+padding:15px 5px;
+}
+
+.letter p{margin-bottom:17px}
+
+.highlight{
+color:#ffb2d7;
+font-weight:bold;
+}
+
+.time{
+background:#ffffff12;
+border:1px solid #ff9acb66;
+border-radius:18px;
+padding:17px;
+margin:20px 0;
+}
+
+.time h3{
+color:#ffb2d7;
+margin-bottom:10px;
+}
+
+.time p{
+font-size:17px;
+line-height:2;
+}
+
+.divider{
+height:1px;
+background:#ffafd455;
+margin:22px 0;
+}
+
+.poetry{
+color:#ffc1df;
+font-style:italic;
+line-height:2;
+font-size:17px;
+padding:12px;
+}
+
+button{
+background:linear-gradient(90deg,#ff3e96,#ff83bd);
+border:none;
+border-radius:30px;
+padding:15px 25px;
+color:white;
+font-size:15px;
+font-weight:bold;
+margin:15px 0;
+box-shadow:0 0 20px #ff3e9666;
+cursor:pointer;
+}
+
+#ending{
+display:none;
+font-size:19px;
+line-height:2;
+color:#ffc4df;
+margin:20px 0;
+}
+
+.footer{
+font-size:12px;
+color:#ffb8d9;
+margin-top:25px;
+letter-spacing:2px;
+}
+
 </style>
 </head>
 
 <body>
 
+<div class="hearts" id="hearts"></div>
+
 <div class="container">
 
-<section class="banner">
+<div class="top">A LITTLE WORLD MADE ONLY FOR YOU 🎀</div>
 
-<img src="PHOTO_URL" alt="Emu">
+<div class="heart">💗</div>
 
-<h1>Hey My Emu Ji! 🧸💗</h1>
+<h1>My Emu Ji</h1>
+<div class="subtitle">Someone is really sorry today 🥺</div>
 
-<p>A LITTLE WORLD MADE ONLY FOR YOU 🎀</p>
+<img class="photo"
+src="https://i.postimg.cc/RhvySnyW/Screenshot-20261118-231129.png"
+alt="My Emu">
 
-</section>
+<h2>Ek Baat Suno Na Emu ❤️</h2>
 
-<section class="card">
+<div class="letter">
 
-<h2>💌 A Message For You</h2>
-
-<p class="message">
-
-Hey Emu, I'm Faiizi ❤️
-
-<br><br>
-
-This little page is only for you.
-
-<br><br>
-
-I never thought I would fall in love with you this deeply. But as we started talking, getting to know each other, and understanding each other, something beautiful happened.
-
-<br><br>
-
-You understood me, and I tried to understand you. And somewhere along the way, you became someone incredibly special in my life.
-
-<br><br>
-
-I started falling for you, and now I love you more than words can ever explain.
-
-<br><br>
-
-I hope we always keep understanding and supporting each other. I want to stand by your side, listen to you, respect you, and share all the beautiful moments with you.
-
-<br><br>
-
-I want to keep choosing you, not just today, but through all the days ahead.
-
-<br><br>
-
-I love you so much, Emu. I swear, I'm falling in love with you more and more every day.
-
+<p>
+Hey My Emu Ji 🥺❤️
 </p>
 
-<div class="love">
-I LOVE YOU EMU JI ❤️
+<p>
+Mujhe pata hai tumne mujhe <span class="highlight">7:45</span> pe aane ko kaha tha aur main <span class="highlight">9 baje</span> aaya
+</p>
+
+<p>
+Main doston ke saath tha aur waqt ka khayal nahi rakha lekin iska matlab ye bilkul nahi ke tumhari baat mere liye important nahi thi
+</p>
+
+<p>
+Emu mujhe samajhna chahiye tha ke tum mera wait kar rahi hogi aur maine tumhe wait karwaya
+</p>
+
+<p>
+Main apni galti ko justify nahi karunga na hi koi bahana banaunga
+Mujhe bas dil se sorry kehna hai
+</p>
+
+<p>
+Tumhara waqt bhi important hai aur tumhari feelings bhi
+Mujhe pehle hi tumhe inform kar dena chahiye tha ke main late ho raha hoon
+</p>
+
+<p>
+I am really sorry meri Emu 🥺
+Main promise karta hoon ke agli baar tumhe aise wait nahi karwaunga aur agar kabhi late hua toh pehle bata dunga
+</p>
+
+<p>
+Please meri is galti ko maaf kar dena
+Main chahta hoon ke tum mujhse naraz hone ke bajaye mujhse khul kar apni baat keh sako
+</p>
+
+<p class="highlight">
+Tum mere liye important ho Emu aur tumhari respect aur waqt dono ki qadar karni chahiye mujhe ❤️
+</p>
+
 </div>
+
+<div class="time">
+<h3>That Little Mistake ⏰</h3>
+<p>💗 You said: 7:45 PM</p>
+<p>🥺 I arrived: 9:00 PM</p>
+<p>❤️ My apology: From my heart</p>
+</div>
+
+<div class="divider"></div>
 
 <div class="poetry">
-
-"You're not just a person in my life,<br>
-You're a beautiful part of my story.<br>
-Among all the moments I could choose,<br>
-I'd choose you in every lifetime. 💗"
-
+Tum naraz ho toh dil udaas rehta hai<br>
+Tumhari khushi se hi mera din khaas rehta hai<br>
+Galti meri thi toh maafi bhi meri hai<br>
+Bas tumhari muskurahat ka intezar rehta hai ❤️
 </div>
 
-<div class="signature">
-Apka Faiizi 🧸
-</div>
+<div class="divider"></div>
 
-</section>
+<h2>One Last Thing 🥺</h2>
+
+<p style="line-height:1.9;color:#ffe0ef">
+Main perfect nahi hoon Emu<br>
+Mujhse galtiyan hoti hain<br>
+Lekin main apni galti samajh kar behtar ban sakta hoon
+</p>
+
+<button onclick="showLove()">
+Tap Here My Emu ❤️
+</button>
+
+<div id="ending">
+I AM REALLY SORRY EMU 🥺💗
+<br>
+Tumhara Faiizi ❤️
+<br>
+I LOVE YOU SO MUCH 🧸
+</div>
 
 <div class="footer">
-Made With Love, Only For Emu Ji 🌷
-<br>
-A little page with a lot of love ❤️
+MADE WITH LOVE BY FAIIZI
 </div>
 
 </div>
 
 <script>
+const heartBox=document.getElementById("hearts");
 
-const emojis=["❤️","💕","💗","🌸","💖","🎀"];
+const symbols=["❤️","💗","💕","💖","🧸","🎀"];
 
-function createHeart(){
-
- const heart=document.createElement("div");
-
- heart.className="heart";
-
- heart.textContent=emojis[
- Math.floor(Math.random()*emojis.length)
- ];
-
- heart.style.left=Math.random()*100+"%";
-
- heart.style.animationDuration=
- (4+Math.random()*5)+"s";
-
- document.body.appendChild(heart);
-
- setTimeout(()=>heart.remove(),9000);
+for(let i=0;i<25;i++){
+let s=document.createElement("span");
+s.innerHTML=symbols[Math.floor(Math.random()*symbols.length)];
+s.style.left=Math.random()*100+"%";
+s.style.animationDuration=(5+Math.random()*8)+"s";
+s.style.animationDelay=Math.random()*8+"s";
+heartBox.appendChild(s);
 }
 
-setInterval(createHeart,450);
-
+function showLove(){
+document.getElementById("ending").style.display="block";
+}
 </script>
 
 </body>
 </html>
 """
 
-HTML = HTML.replace("PHOTO_URL", PHOTO)
-
-class Website(BaseHTTPRequestHandler):
-
+class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
-
-        if self.path not in ("/", "/index.html"):
-            self.send_error(404)
-            return
-
-        content = HTML.encode("utf-8")
-
         self.send_response(200)
-        self.send_header(
-            "Content-Type",
-            "text/html; charset=utf-8"
-        )
-        self.send_header(
-            "Content-Length",
-            str(len(content))
-        )
+        self.send_header("Content-type","text/html; charset=utf-8")
         self.end_headers()
+        self.wfile.write(HTML.encode("utf-8"))
 
-        self.wfile.write(content)
+server=ThreadingHTTPServer(("0.0.0.0",PORT),Handler)
 
-    def log_message(self, format, *args):
-        print("[SERVER]", format % args)
+print("\n❤️ FAIZI X EMU APOLOGY WEBSITE ❤️")
+print("Website: http://127.0.0.1:8080")
+print("Server Started Successfully!\n")
 
-
-if __name__ == "__main__":
-
-    server = ThreadingHTTPServer(
-        ("0.0.0.0", PORT),
-        Website
-    )
-
-    print("\n💕 EMU LOVE WEBSITE STARTED")
-    print("🌸 http://127.0.0.1:1000")
-    print("🎀 Made by Faiizi")
-    print("❤️ Press CTRL+C to stop\n")
-
-    try:
-        server.serve_forever()
-
-    except KeyboardInterrupt:
-        print("\nWebsite stopped!")
-        server.server_close()
+server.serve_forever()
